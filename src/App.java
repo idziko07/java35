@@ -7,13 +7,24 @@ public class App {
         Load load = new Load();
         Scanner input = new Scanner(System.in);
         input.useLocale(Locale.US);
+        Sport sport;
 
 
         for (int i = 0; i < sports.length; i++) {
-            sports[i] = load.LoadOfSport();
-            if((i >0 && sports[i].equals(sports[i-1])) || (i>1 && sports[i].equals(sports[i-2]))){
-                System.out.println("Podałeś już takie dane. Podaj inne:");
-                sports[i] = load.LoadOfSport();
+           sport = load.LoadOfSport();
+           boolean good = false;
+                for (int j = 0; j < i ; j++) {
+                    if(good == false) {
+                        if (sport.equals(sports[j])) {
+                            System.out.println("Podane dane już się pojawiły. Podaj ponownie dane.");
+                            good = true;
+                        }
+                    }
+                }
+            if(good == false){
+                sports[i] = sport;
+            }else{
+                i--;
             }
         }
 
